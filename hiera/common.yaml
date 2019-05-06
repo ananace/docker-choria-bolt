@@ -1,0 +1,12 @@
+---
+mcollective::connector: nats
+mcollective::securityprovider: choria
+mcollective::client: true
+mcollective::server: false
+mcollective::purge: true
+
+mcollective::service_ensure: stopped
+mcollective::service_enable: false
+
+mcollective::plugin_classes:
+  - mcollective_agent_bolt_tasks
