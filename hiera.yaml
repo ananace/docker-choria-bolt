@@ -1,11 +1,10 @@
 ---
-:backends:
-- yaml
+version: 5
 
-:logger: console
+hierarchy:
+  - name: Common
+    path: common.yaml
 
-:hierarchy:
-  - common
-
-:yaml:
-  :datadir: "/etc/hiera/"
+defaults:
+  data_hash: yaml_data
+  datadir: "/etc/hiera/"
