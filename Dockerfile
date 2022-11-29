@@ -12,6 +12,8 @@ RUN apt-get update -yqq \
 \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
+ && echo "Testing hiera functionality." \
+ && test "$(/opt/puppetlabs//bin/hiera -c /tmp/hiera/hiera.yaml choria::server)" = "false" \
  && ln -s /bin/true /usr/bin/systemctl \
  && ln -s /bin/true /usr/bin/crontab \
  && /opt/puppetlabs/bin/puppet module install puppetlabs-cron_core --target-dir=/tmp/modules \
