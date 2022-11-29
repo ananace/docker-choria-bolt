@@ -12,6 +12,7 @@ RUN apt-get update -yqq \
 \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
+ && ln -s /bin/true /usr/bin/systemctl \
  && /opt/puppetlabs/bin/puppet module install choria-choria --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-mcollective_agent_bolt_tasks --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet apply --hiera_config=/tmp/hiera/hiera.yaml --modulepath=/tmp/modules -e 'include mcollective' \
@@ -23,6 +24,7 @@ RUN apt-get update -yqq \
  && apt-get autoremove -yqq \
  && apt-get clean \
  && rm -rf /tmp/hiera /tmp/modules /var/lib/apt/lists/* \
+ && rm /usr/bin/systemctl \
  && adduser --disabled-password --gecos '' $MCOLLECTIVE_IDENTITY \
  && chown -R $MCOLLECTIVE_IDENTITY /etc/puppetlabs/mcollective
 
