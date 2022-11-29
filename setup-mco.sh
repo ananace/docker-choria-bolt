@@ -10,10 +10,11 @@ echo "${MCOLLECTIVE_KEY}" > "$HOME/.puppetlabs/etc/puppet/ssl/private_keys/${use
 echo "${MCOLLECTIVE_CA}" > ~/.puppetlabs/etc/puppet/ssl/certs/ca.pem
 
 # Apparently this parameter is not templated correctly
-sed -e "s/identity = .*/identity = ${user}/" -i /etc/puppetlabs/mcollective/client.cfg
-sed -e "s/identity = .*/identity = ${user}/" -i /etc/puppetlabs/mcollective/choria-shim.cfg
+sed -e "s/identity = .*/identity = ${user}/" -i /etc/choria/client.cfg
+sed -e "s/identity = .*/identity = ${user}/" -i /etc/choria/choria-shim.cfg
+# Fill in placeholders in choria configuration
 sed -e "s/@NATS@/${MCOLLECTIVE_NATS}/" \
     -e "s/@PUPPETSERVER@/${MCOLLECTIVE_PUPPETSERVER}/" \
     -e "s/@PUPPETCA@/${MCOLLECTIVE_PUPPETCA}/" \
     -e "s/@PUPPETDB@/${MCOLLECTIVE_PUPPETDB}/" \
-    -i /etc/puppetlabs/mcollective/plugin.d/choria.cfg
+    -i /etc/choria/plugin.d/choria.cfg
