@@ -32,6 +32,7 @@ RUN set -x \
  && apt-get clean \
  && rm -rf /tmp/hiera /tmp/modules /var/lib/apt/lists/* \
  && rm /usr/bin/systemctl /usr/bin/crontab \
+ && mkdir -p /etc/puppetlabs/mcollective/plugin.d \
  && adduser --disabled-password --gecos '' $MCOLLECTIVE_IDENTITY \
  && chown -R $MCOLLECTIVE_IDENTITY /etc/puppetlabs/mcollective
 
