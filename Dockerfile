@@ -40,7 +40,7 @@ RUN set -x \
 \
  && mkdir -p /etc/choria/plugin.d \
  && adduser --disabled-password --gecos '' $MCOLLECTIVE_IDENTITY \
- && chown -R $MCOLLECTIVE_IDENTITY /etc/puppetlabs/mcollective
+ && chown -R $MCOLLECTIVE_IDENTITY /etc/choria
 
 ADD choria.cfg /etc/choria/plugin.d/choria.cfg 
 ADD setup-mco.sh /usr/local/bin/setup-mco
