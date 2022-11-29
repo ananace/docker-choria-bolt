@@ -13,6 +13,7 @@ RUN apt-get update -yqq \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
  && ln -s /bin/true /usr/bin/systemctl \
+ && /opt/puppetlabs/bin/puppet module install puppetlabs-cron_core --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-choria --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-mcollective_agent_bolt_tasks --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet apply --hiera_config=/tmp/hiera/hiera.yaml --modulepath=/tmp/modules -e 'class { "choria": server => false, }' \
