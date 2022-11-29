@@ -13,7 +13,8 @@ RUN apt-get update -yqq \
 \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
- && echo "Testing hiera functionality." \
+ && echo "Testing hiera functionality;" \
+ && echo "choria::server: $(/opt/puppetlabs/bin/hiera -c /etc/hiera.yaml choria::server)" \
  && test "$(/opt/puppetlabs/bin/hiera -c /etc/hiera.yaml choria::server)" = "false" \
  && ln -s /bin/true /usr/bin/systemctl \
  && ln -s /bin/true /usr/bin/crontab \
