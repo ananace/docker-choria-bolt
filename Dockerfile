@@ -1,7 +1,8 @@
 FROM debian:11
 
 ENV MCOLLECTIVE_IDENTITY=gitlab-ci
-COPY hiera /tmp
+COPY hiera/ /etc
+COPY hiera.yaml /etc
 
 RUN apt-get update -yqq \
  && apt-get install curl ca-certificates -yqq --no-install-recommends \
@@ -13,13 +14,13 @@ RUN apt-get update -yqq \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
  && echo "Testing hiera functionality." \
- && test "$(/opt/puppetlabs//bin/hiera -c /tmp/hiera/hiera.yaml choria::server)" = "false" \
+ && test "$(/opt/puppetlabs/bin/hiera -c /etc/hiera.yaml choria::server)" = "false" \
  && ln -s /bin/true /usr/bin/systemctl \
  && ln -s /bin/true /usr/bin/crontab \
  && /opt/puppetlabs/bin/puppet module install puppetlabs-cron_core --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-choria --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-mcollective_agent_bolt_tasks --target-dir=/tmp/modules \
- && /opt/puppetlabs/bin/puppet apply --hiera_config=/tmp/hiera/hiera.yaml --modulepath=/tmp/modules -e 'class { "choria": server => false, }' \
+ && /opt/puppetlabs/bin/puppet apply --hiera_config=/etc/hiera.yaml --modulepath=/tmp/modules -e 'class { "choria": server => false, }' \
 \
  && cp -r /tmp/modules/mcollective_choria/files/mcollective/* /opt/puppetlabs/mcollective/plugins/mcollective/ \
  && cp -r /tmp/modules/mcollective_agent_*/files/mcollective/* /opt/puppetlabs/mcollective/plugins/mcollective/ \
