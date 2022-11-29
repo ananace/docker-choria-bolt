@@ -13,6 +13,7 @@ RUN apt-get update -yqq \
  && apt-get update -yqq \
  && apt-get install puppet-agent -yqq \
  && ln -s /bin/true /usr/bin/systemctl \
+ && ln -s /bin/true /usr/bin/crontab \
  && /opt/puppetlabs/bin/puppet module install puppetlabs-cron_core --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-choria --target-dir=/tmp/modules \
  && /opt/puppetlabs/bin/puppet module install choria-mcollective_agent_bolt_tasks --target-dir=/tmp/modules \
@@ -25,7 +26,7 @@ RUN apt-get update -yqq \
  && apt-get autoremove -yqq \
  && apt-get clean \
  && rm -rf /tmp/hiera /tmp/modules /var/lib/apt/lists/* \
- && rm /usr/bin/systemctl \
+ && rm /usr/bin/systemctl /usr/bin/crontab \
  && adduser --disabled-password --gecos '' $MCOLLECTIVE_IDENTITY \
  && chown -R $MCOLLECTIVE_IDENTITY /etc/puppetlabs/mcollective
 
