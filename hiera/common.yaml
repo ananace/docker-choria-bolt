@@ -1,5 +1,4 @@
 ---
-choria::manage_service: false
 choria::server: false
 
 mcollective::connector: nats
