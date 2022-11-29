@@ -1,4 +1,7 @@
 ---
+choria::manage_service: false
+choria::server: false
+
 mcollective::connector: nats
 mcollective::securityprovider: choria
 mcollective::client: true
